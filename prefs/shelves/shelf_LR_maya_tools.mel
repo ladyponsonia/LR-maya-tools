@@ -1,0 +1,486 @@
+global proc shelf_LR_maya_tools () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Snaps 2nd selected object to 1st selected object" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Snap" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/snap.bmp" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/snap.bmp" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.core as pm\n\n#find freeze transforms offset in local space\ndef find_ft_offset(obj):\n    #create locator and parent constraint\n    objLoc = pm.spaceLocator()\n    objConstraint = pm.parentConstraint( obj, objLoc)\n    #find diference between obj and loc\n    locWorldPos = objLoc.worldMatrix.get()\n    objWorldPos = obj.worldMatrix.get()\n    offset = locWorldPos * objWorldPos.inverse()\n    pm.delete(objLoc)\n    return offset\n\nsel= pm.ls(sl=True)\ntarget = sel[0]\nobj = sel[1]\n\n# get target world pos/rot and offset(frozen transforms)\ntargetPos = target.worldMatrix.get()\ntarget_ft_offset = find_ft_offset(target)\n#offset for obj frozen transforms\nobj_ft_offset = find_ft_offset(obj)\n#get targetPos + target offset - obj offset in obj space\nobjParentInv = obj.parentInverseMatrix.get()\nobjPos = target_ft_offset * obj_ft_offset.inverse() * targetPos * objParentInv\n#assign values to obj\nobj.setMatrix( objPos)\n\n\n\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create locator at selection" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create locator at selection" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/locator.bmp" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/locator.bmp" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\n\nnames = mc.ls(sl=True)\nfor name in names:\n\tnewLoc = mc.spaceLocator(name= name +'_loc')\n\tconstraint = mc.parentConstraint( name, newLoc)\n\tmc.delete(constraint)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Creates locator at the center of selected vertices. Select vertices then run script." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Cluster locator" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/clusterLocator.png" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/clusterLocator.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\nnewCluster = mc.cluster()\nnewLoc = mc.spaceLocator()\nconstraint = mc.parentConstraint( newCluster , newLoc)\nmc.delete(constraint)\nmc.delete(newCluster)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create orientGrp" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create orientGrp" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/ctrlOrient.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/ctrlOrient.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_ctrlOrientTool\nreload(lr_ctrlOrientTool)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Change curve color" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Change curve color" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/curveColorDO.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/curveColorDO.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nfrom functools import partial\n\n#check if drawingOverides is already open\nif mc.window('drawingOverides', query=True, exists=True):\n    mc.deleteUI('drawingOverides', window=True)\n\n\n\ndef assignColor(colorSlider, arg=None):\n    \n    colorPick = mc.colorIndexSliderGrp( colorSlider, q=1, v=1 )\n    sel= mc.ls(sl=1)\n    for obj in sel:\n        sel_shapes = mc.listRelatives(obj, s=1, pa=1)\n        print(sel_shapes)\n        for shape in sel_shapes:\n            print(shape)\n            print(colorPick)\n            mc.setAttr (shape + \".overrideEnabled\", 1)\n            mc.setAttr (shape + \".overrideColor\", colorPick-1 )\n        \n        \n        \n\n######## GUI    \nmc.window('drawingOverides', title='Change curve color')\nmc.rowColumnLayout(numberOfColumns=2, columnWidth=[(1, 500), (2, 20), (3, 100)])\ncolorSlider = mc.colorIndexSliderGrp( label='Select Color:   ', min=0, max=20, value=10 )\nmc.text(label='')\nmc. button(label='assign', command=partial(assignColor, colorSlider ))\n\n#Show\nmc.showWindow('drawingOverides')\n\n\n\n\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 36
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Wheel auto rotate" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Wheel auto rotate" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/wheel.png" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/wheel.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\nsel = mc.ls(sl=1)\nmaster_ctrl = sel[0]\nmove_ctrl = sel[1]\nwheels = sel[2:]\n\nfor wheel in wheels:\n    #Get wheel diameter\n    #get wheel bounding box\n    bbox = mc.exactWorldBoundingBox(wheel)\n    width = bbox[3] - bbox[0]\n    diam = bbox[5] - bbox[2]\n    #create distance measurement\n    loc_tx = bbox[0] + width/2\n    loc_tz = bbox[2] + diam/2\n    diam_Shape = mc.distanceDimension( sp=(loc_tx,bbox[1],loc_tz), ep=(loc_tx,bbox[4],loc_tz) )\n    diam_Transform = mc.listRelatives(diam_Shape, p=1)\n    diam_Transform = mc.rename(diam_Transform[0], str(wheel)+'_diameter')\n    mc.parent(diam_Transform, master_ctrl)\n    diam_Shape = mc.listRelatives(diam_Transform, s=1)\n    wheel_diameter = mc.rename(diam_Shape[0], str(wheel)+'_diameterShape')\n    mc.setAttr( str(wheel_diameter)+'.visibility', 0 )\n    locators = mc.listConnections(wheel_diameter)\n    mc.select(locators[0], r=1)\n    distLoc01 = mc.rename(locators[0], str(wheel)+'_distLoc01')\n    mc.select(locators[1], r=1)\n    distLoc02 = mc.rename(locators[1], str(wheel)+'_distLoc02')\n    #parent locators to wheel_geo and hide\n    mc.parent(distLoc01, wheel)\n    mc.parent(distLoc02, wheel)\n    mc.setAttr( str(distLoc01)+'.visibility', 0 )\n    mc.setAttr( str(distLoc02)+'.visibility', 0 )    \n    \n    #Create wheel control and locator\n    \n    wheel_Ctrl = mc.circle(n=wheel+'_Ctrl', r=diam/4, nrx=90)\n    curve_constraint = mc.parentConstraint( wheel, wheel_Ctrl)\n    mc.delete(curve_constraint)\n    mc.move((width/2)+(width/8), wheel_Ctrl, r=True, x=True)\n    #delete history\n    mc.delete(ch=True) \n    #freeze transforms\n    mc.makeIdentity(apply=True, t=1, r=1, s=1, n=0)\n    #shape\n    mc.select(str(wheel_Ctrl[0])+'.cv[0]', r=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[2]', add=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[4]', add=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[6]', add=True)\n    mc.scale(1,0.2,0.2)\n    #add auto attr to move_ctrl\n    mc.addAttr(move_ctrl, ln=str(wheel)+'Auto', at='bool', k=True, dv=0 ) \n    mc.parent(wheel_Ctrl[0], move_ctrl)\n    #locator\n    wheelLoc = mc.spaceLocator(name= str(wheel)+'_loc')\n    constraint = mc.parentConstraint( wheel, wheelLoc)\n    mc.delete(constraint)\n    mc.parent(wheel, wheelLoc)\n    mc.parent(wheelLoc, wheel_Ctrl[0])\n    mc.setAttr( str(wheelLoc[0])+'Shape.visibility', 0 ) \n    \n    #Create null groups to track position\n    mc.select(cl=1)\n    wheelDir = mc.group(n=str(wheel)+'Dir', em=1)\n    grp_constraint = mc.parentConstraint(wheelLoc, wheelDir)\n    mc.delete(grp_constraint)\n    mc.parent(wheelDir, move_ctrl)\n    wheelOld = mc.duplicate(wheelDir, n=str(wheel)+'Old')\n    mc.parent(wheelOld, master_ctrl)\n    radius = (mc.getAttr(str(wheel_diameter)+'.distance'))/2\n    mc.move(0,0,radius, wheelDir, r=1)\n\n    #Add expressions\n    mc.expression( n= str(wheel)+'_exp', s='float $diameter = `getAttr '+ str(wheel)+ '_diameterShape.distance`; vector $moveVectorOld = `xform -q -ws -t \\\"'+ str(wheel)+'Old\\\"`; vector $moveVector = `xform -q -ws -t \\\"'+ str(wheelLoc[0])+'\\\"`; vector $dirVector = `xform -q -ws -t \\\"'+ str(wheel)+'Dir\\\"`; vector $wheelVector = ($dirVector - $moveVector); vector $motionVector = ($moveVector - $moveVectorOld); float $distance = mag($motionVector); $dot = dotProduct($motionVector, $wheelVector, 1); '+str(wheelLoc[0])+'.rotateX = '+ str(wheelLoc[0])+'.rotateX + 360 / (3.1416*$diameter) * ($dot*$distance) * ('+str(move_ctrl)+'.'+ str(wheel)+'Auto); xform -ws -t ($moveVector.x) ($moveVector.y) ($moveVector.z) '+ str(wheel)+ 'Old; if (frame==0) {' + str(wheelLoc[0])+'.rotateX = 0;} ') \n   \n   \n    " 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Rig rope" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Rig rope" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2018/prefs/icons/rope.png" 
+        -image1 "V:/Maya_Preferences/Maya/2018/prefs/icons/rope.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_rigRope\nreload(lr_rigRope)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create multiple references  " 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create multiple references  " 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/multiReference.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/multiReference.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_referenceTool\nreload(lr_referenceTool)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 36
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create cam from current view" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create cam from current view" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/camera.bmp" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/camera.bmp" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\nif (mc.pluginInfo('vrayformaya.mll', q=1, l=1) == 0):\n    mc.loadPlugin ('vrayformaya.mll')\n\n#find current cam\ncurrentPan = None\ncurrentPan = mc.getPanel(wf=True)\n\n#check viewport is selected\nexists = mc.modelPanel(currentPan, ex=True)\ndef createCam():\n    if exists:\n        #find current cam\n        cam = mc.modelPanel(currentPan, q=True, camera=True)\n    else:\n        mc.confirmDialog(title='Warning', message='Please select viewport', button='ok') \n        return\n    newCam = mc.duplicate(cam, name= 'cam0#')\n    #show resolution gate\n    mc.camera( newCam, e=True, dr=True )\n    mc.setAttr(str(newCam[0])+'.visibility',1, e=True)\n    \n    #set vray physical cam with preset values, but leave it off\n    camShape = mc.listRelatives(newCam, s=1)[0]\n    mc.vray(\"addAttributesFromGroup\",camShape, 'vray_cameraPhysical', 1)\n    mc.setAttr(camShape + '.vrayCameraPhysicalOn', 0)\n    mc.setAttr(camShape + '.horizontalFilmAperture', 0.98)\n    mc.setAttr(camShape + '.verticalFilmAperture', 0.735)\n    mc.setAttr(camShape + '.overscan', 1.5)\n    mc.setAttr(camShape + '.fStop', 5.6)\n    mc.setAttr(camShape + '.centerOfInterest', 20.188)\n    mc.setAttr(camShape + '.threshold', 0.9)\n    mc.setAttr(camShape + '.vrayCameraPhysicalType', 1)\n    mc.setAttr(camShape + '.vrayCameraPhysicalFilmWidth', 28.82022476)\n    mc.setAttr(camShape + '.vrayCameraPhysicalFocalLength', 25.31568336)\n    mc.setAttr(camShape + '.vrayCameraPhysicalFOV', 52.93201065)\n    #mc.setAttr(camShape + '.vrayCameraPhysicalFNumber', 11)\n    mc.setAttr(camShape + '.vrayCameraPhysicalFNumber', 4)\n    mc.setAttr(camShape + '.vrayCameraPhysicalISO', 400)\n    #mc.setAttr(camShape + '.vrayCameraPhysicalShutterSpeed', 1)\n    \n    #open in another window\n    window = mc.window(widthHeight=(800, 800))\n    mc.paneLayout()\n    pan = mc.modelPanel()\n    # display smooth shaded, no nurb curves\n    mc.modelEditor(pan, e=True, da=\"smoothShaded\", nc=False, gr=False)\n\n    mc.lookThru(pan, newCam)\n    mc.showWindow( window )\n    \ncreateCam()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Opens a detached panel for each selected camera" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Viewports for cameras" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/Camera2panel.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/Camera2panel.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\nsel = mc.ls(sl=1)\n\nfor obj in sel:\n    \n    #check if camera\n    camShape = mc.listRelatives(obj)\n    if mc.objectType( camShape, isType='camera' ):\n            \n        #create new panel\n        camWin = mc.window(widthHeight=(800, 800))\n        mc.paneLayout()\n        pan = mc.modelPanel()\n        # display smooth shaded, polys only, no grid, no sel highlight\n        mc.modelEditor(pan, e=True, aob=0, da=\"smoothShaded\", gr=False, sel=0, pm=1, nc=0, j=0, lt=0, ca=0, lc=0, ikh=0, mt=0, dtx=1, df=0)\n        #show resolution gate\n        mc.camera( obj, e=True, dr=True )\n        mc.setAttr(str(obj)+'.visibility',1, e=True)\n            \n        mc.lookThru(pan, obj)\n        mc.showWindow( camWin )" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Set background color " 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Set background colour " 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/changeBG.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/changeBG.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\n\n# Set the background color \nBGcolor = [0.5, 0.5, 0.5]\nmc.displayRGBColor( 'background', BGcolor[0], BGcolor[1], BGcolor[2] )" 
+        -sourceType "python" 
+        -doubleClickCommand "import maya.cmds as mc\n\n# Set the background color \nBGcolor = [1.0, 1.0, 1.0]\nmc.displayRGBColor( 'background', BGcolor[0], BGcolor[1], BGcolor[2] )" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle selection highlight" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Toggle selection highlight" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/selHighlight.png" 
+        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/selHighlight.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "//ToggleSelectionHighlight:\n$currentPanel = `getPanel -withFocus`; \nstring $panelType = `getPanel -to $currentPanel`;\nif ($panelType == \"modelPanel\")\n{ \nmodelEditor -e -sel ( !`modelEditor -q -sel $currentPanel` ) $currentPanel;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Connects Vray Z-depth attrs. Select camera then object of interest" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ZdepthTool" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_preferences/Maya/2016/prefs/icons/Zdepth.png" 
+        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/Zdepth.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_zDepth_tool\nreload(lr_zDepth_tool)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Bake Blend Materials" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Bake Blend Materials" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "V:/Maya_Preferences/Maya/2018/prefs/icons/bakeBlendMat.png" 
+        -image1 "V:/Maya_Preferences/Maya/2018/prefs/icons/bakeBlendMat.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_bake_vray_blend as bvb\nreload(bvb)\nbvb.bake_default_size()\n" 
+        -sourceType "python" 
+        -doubleClickCommand "import lr_bakeBlendShader as bbs\nreload(bbs)\nbbs.bakeWithSizeInput()" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 
