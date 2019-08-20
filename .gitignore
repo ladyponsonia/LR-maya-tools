@@ -1,7 +1,17 @@
 *.pyc
+*.psd
+Dos/
 presets/
+plug-ins/
 user.toolclips/
+scripts/IMX_Anim/
+scripts/JUM/
+scripts/old/
 scripts/studiolibrary/
+scripts/ThunderCloud/
+scripts/zooMel/
+scripts/zooPy/
+scripts/zooPyMaya/
 scripts/zv/
 scripts/*.mel
 prefs/hotkeys/
@@ -98,7 +108,7 @@ prefs/shelves/shelf_MASH.mel
 prefs/shelves/shelf_MotionGraphics.mel
 prefs/shelves/shelf_Polygons.mel
 prefs/shelves/shelf_Rendering.mel
-prefs/shelves/shelf_Rigging.mel
+prefs/shelves/*Rigging.mel
 prefs/shelves/shelf_Sculpting.mel
 prefs/shelves/shelf_VM.mel
 prefs/shelves/shelf_VM_GeoClean.mel
@@ -107,6 +117,12 @@ prefs/shelves/shelf_VM_Packaging.mel
 prefs/shelves/shelf_VM_Rig.mel
 prefs/shelves/shelf_VRay.mel
 prefs/shelves/shelf_XGen.mel
+prefs/shelves/shelf_HDRLightStudio5.mel
+prefs/shelves/shelf_MentalRay.mel
+prefs/shelves/shelf_PhoenixFD.mel
+prefs/shelves/shelf_Polygons_User.mel
+prefs/shelves/shelf_SLiB.mel
+prefs/shelves/uvShelf_Custom.mel
 prefs/synColorConfig.xml
 prefs/synColorConfig.xml.lock
 prefs/synColorFileRules.xml
@@ -143,3 +159,7 @@ scripts/vraytuner_pycomponents.py
 scripts/wheelRig.py
 scripts/wheelRig1.py
 scripts/zooToolbox.py
+Plug-Ins_LIST.jpg
+prefs/icons/Thumbs.db
+prefs/userPrefs.mela05036
+
