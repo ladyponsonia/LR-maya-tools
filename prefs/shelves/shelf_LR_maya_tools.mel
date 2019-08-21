@@ -6,10 +6,8 @@ global proc shelf_LR_maya_tools () {
 
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -28,8 +26,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/snap.bmp" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/snap.bmp" 
+        -image "snap.bmp" 
+        -image1 "snap.bmp" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -40,10 +38,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -62,8 +58,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/locator.bmp" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/locator.bmp" 
+        -image "locator.bmp" 
+        -image1 "locator.bmp" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -74,10 +70,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -96,8 +90,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/clusterLocator.png" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/clusterLocator.png" 
+        -image "clusterLocator.png" 
+        -image1 "clusterLocator.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -108,10 +102,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -130,8 +122,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/ctrlOrient.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/ctrlOrient.png" 
+        -image "ctrlOrient.png" 
+        -image1 "ctrlOrient.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -142,10 +134,72 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "wheel auto rotate, select master_ctrl, then move_ctrl,  then wheels" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Wheel auto rotate" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "wheel.png" 
+        -image1 "wheel.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_wheel_rig\nreload(lr_wheel_rig)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Add motion path to car rig. Select motion path node, then path curve, then car move ctrl" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Add motion path to car rig" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "path_connect.png" 
+        -image1 "path_connect.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import lr_plug_in_car_path\nreload(lr_plug_in_car_path)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -164,8 +218,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/curveColorDO.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/curveColorDO.png" 
+        -image "curveColorDO.png" 
+        -image1 "curveColorDO.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -176,44 +230,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 36
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Wheel auto rotate" 
-        -enableBackground 0
-        -backgroundColor 0 0 0 
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Wheel auto rotate" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/wheel.png" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/wheel.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import maya.cmds as mc\n\nsel = mc.ls(sl=1)\nmaster_ctrl = sel[0]\nmove_ctrl = sel[1]\nwheels = sel[2:]\n\nfor wheel in wheels:\n    #Get wheel diameter\n    #get wheel bounding box\n    bbox = mc.exactWorldBoundingBox(wheel)\n    width = bbox[3] - bbox[0]\n    diam = bbox[5] - bbox[2]\n    #create distance measurement\n    loc_tx = bbox[0] + width/2\n    loc_tz = bbox[2] + diam/2\n    diam_Shape = mc.distanceDimension( sp=(loc_tx,bbox[1],loc_tz), ep=(loc_tx,bbox[4],loc_tz) )\n    diam_Transform = mc.listRelatives(diam_Shape, p=1)\n    diam_Transform = mc.rename(diam_Transform[0], str(wheel)+'_diameter')\n    mc.parent(diam_Transform, master_ctrl)\n    diam_Shape = mc.listRelatives(diam_Transform, s=1)\n    wheel_diameter = mc.rename(diam_Shape[0], str(wheel)+'_diameterShape')\n    mc.setAttr( str(wheel_diameter)+'.visibility', 0 )\n    locators = mc.listConnections(wheel_diameter)\n    mc.select(locators[0], r=1)\n    distLoc01 = mc.rename(locators[0], str(wheel)+'_distLoc01')\n    mc.select(locators[1], r=1)\n    distLoc02 = mc.rename(locators[1], str(wheel)+'_distLoc02')\n    #parent locators to wheel_geo and hide\n    mc.parent(distLoc01, wheel)\n    mc.parent(distLoc02, wheel)\n    mc.setAttr( str(distLoc01)+'.visibility', 0 )\n    mc.setAttr( str(distLoc02)+'.visibility', 0 )    \n    \n    #Create wheel control and locator\n    \n    wheel_Ctrl = mc.circle(n=wheel+'_Ctrl', r=diam/4, nrx=90)\n    curve_constraint = mc.parentConstraint( wheel, wheel_Ctrl)\n    mc.delete(curve_constraint)\n    mc.move((width/2)+(width/8), wheel_Ctrl, r=True, x=True)\n    #delete history\n    mc.delete(ch=True) \n    #freeze transforms\n    mc.makeIdentity(apply=True, t=1, r=1, s=1, n=0)\n    #shape\n    mc.select(str(wheel_Ctrl[0])+'.cv[0]', r=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[2]', add=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[4]', add=True)\n    mc.select(str(wheel_Ctrl[0])+'.cv[6]', add=True)\n    mc.scale(1,0.2,0.2)\n    #add auto attr to move_ctrl\n    mc.addAttr(move_ctrl, ln=str(wheel)+'Auto', at='bool', k=True, dv=0 ) \n    mc.parent(wheel_Ctrl[0], move_ctrl)\n    #locator\n    wheelLoc = mc.spaceLocator(name= str(wheel)+'_loc')\n    constraint = mc.parentConstraint( wheel, wheelLoc)\n    mc.delete(constraint)\n    mc.parent(wheel, wheelLoc)\n    mc.parent(wheelLoc, wheel_Ctrl[0])\n    mc.setAttr( str(wheelLoc[0])+'Shape.visibility', 0 ) \n    \n    #Create null groups to track position\n    mc.select(cl=1)\n    wheelDir = mc.group(n=str(wheel)+'Dir', em=1)\n    grp_constraint = mc.parentConstraint(wheelLoc, wheelDir)\n    mc.delete(grp_constraint)\n    mc.parent(wheelDir, move_ctrl)\n    wheelOld = mc.duplicate(wheelDir, n=str(wheel)+'Old')\n    mc.parent(wheelOld, master_ctrl)\n    radius = (mc.getAttr(str(wheel_diameter)+'.distance'))/2\n    mc.move(0,0,radius, wheelDir, r=1)\n\n    #Add expressions\n    mc.expression( n= str(wheel)+'_exp', s='float $diameter = `getAttr '+ str(wheel)+ '_diameterShape.distance`; vector $moveVectorOld = `xform -q -ws -t \\\"'+ str(wheel)+'Old\\\"`; vector $moveVector = `xform -q -ws -t \\\"'+ str(wheelLoc[0])+'\\\"`; vector $dirVector = `xform -q -ws -t \\\"'+ str(wheel)+'Dir\\\"`; vector $wheelVector = ($dirVector - $moveVector); vector $motionVector = ($moveVector - $moveVectorOld); float $distance = mag($motionVector); $dot = dotProduct($motionVector, $wheelVector, 1); '+str(wheelLoc[0])+'.rotateX = '+ str(wheelLoc[0])+'.rotateX + 360 / (3.1416*$diameter) * ($dot*$distance) * ('+str(move_ctrl)+'.'+ str(wheel)+'Auto); xform -ws -t ($moveVector.x) ($moveVector.y) ($moveVector.z) '+ str(wheel)+ 'Old; if (frame==0) {' + str(wheelLoc[0])+'.rotateX = 0;} ') \n   \n   \n    " 
-        -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
-        -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -232,8 +250,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2018/prefs/icons/rope.png" 
-        -image1 "V:/Maya_Preferences/Maya/2018/prefs/icons/rope.png" 
+        -image "rope.png" 
+        -image1 "rope.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -244,10 +262,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -266,8 +282,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/multiReference.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/multiReference.png" 
+        -image "multiReference.png" 
+        -image1 "multiReference.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -278,10 +294,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 36
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -300,8 +314,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/camera.bmp" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/camera.bmp" 
+        -image "camera.bmp" 
+        -image1 "camera.bmp" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -312,10 +326,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -334,8 +346,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/Camera2panel.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/Camera2panel.png" 
+        -image "Camera2panel.png" 
+        -image1 "Camera2panel.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -346,10 +358,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -368,8 +378,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/changeBG.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/changeBG.png" 
+        -image "changeBG.png" 
+        -image1 "changeBG.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -381,10 +391,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -403,8 +411,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2016/prefs/icons/selHighlight.png" 
-        -image1 "V:/Maya_Preferences/Maya/2016/prefs/icons/selHighlight.png" 
+        -image "selHighlight.png" 
+        -image1 "selHighlight.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -415,10 +423,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -437,8 +443,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_preferences/Maya/2016/prefs/icons/Zdepth.png" 
-        -image1 "V:/Maya_preferences/Maya/2016/prefs/icons/Zdepth.png" 
+        -image "Zdepth.png" 
+        -image1 "Zdepth.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
@@ -449,10 +455,8 @@ global proc shelf_LR_maya_tools () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 3
-        -flexibleWidthValue 32
         -enable 1
-        -width 35
+        -width 34
         -height 34
         -manage 1
         -visible 1
@@ -471,8 +475,8 @@ global proc shelf_LR_maya_tools () {
         -font "plainLabelFont" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.5 
-        -image "V:/Maya_Preferences/Maya/2018/prefs/icons/bakeBlendMat.png" 
-        -image1 "V:/Maya_Preferences/Maya/2018/prefs/icons/bakeBlendMat.png" 
+        -image "bakeBlendMat.png" 
+        -image1 "bakeBlendMat.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
