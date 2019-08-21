@@ -41,3 +41,10 @@ def warning_msg(msg, arg=None):
     mc.confirmDialog(title='Warning', message=msg, button='ok')
 
 connect_motionPath(sel)
+
+####################################
+##  ADD PATH TO CAR RIG           ##
+##  lr_plug_in_car_path.py        ##
+##  Created by Lorena Rother      ##
+##  Updated: 20 Aug 2019          ##
+####################################
