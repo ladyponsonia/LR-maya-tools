@@ -140,6 +140,38 @@ global proc shelf_LR_maya_tools () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Change curve color" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Change curve color" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "curveColorDO.png" 
+        -image1 "curveColorDO.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nfrom functools import partial\n\n#check if drawingOverides is already open\nif mc.window('drawingOverides', query=True, exists=True):\n    mc.deleteUI('drawingOverides', window=True)\n\n\n\ndef assignColor(colorSlider, arg=None):\n    \n    colorPick = mc.colorIndexSliderGrp( colorSlider, q=1, v=1 )\n    sel= mc.ls(sl=1)\n    for obj in sel:\n        sel_shapes = mc.listRelatives(obj, s=1, pa=1)\n        print(sel_shapes)\n        for shape in sel_shapes:\n            print(shape)\n            print(colorPick)\n            mc.setAttr (shape + \".overrideEnabled\", 1)\n            mc.setAttr (shape + \".overrideColor\", colorPick-1 )\n        \n        \n        \n\n######## GUI    \nmc.window('drawingOverides', title='Change curve color')\nmc.rowColumnLayout(numberOfColumns=2, columnWidth=[(1, 500), (2, 20), (3, 100)])\ncolorSlider = mc.colorIndexSliderGrp( label='Select Color:   ', min=0, max=20, value=10 )\nmc.text(label='')\nmc. button(label='assign', command=partial(assignColor, colorSlider ))\n\n#Show\nmc.showWindow('drawingOverides')\n\n\n\n\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "wheel auto rotate, select master_ctrl, then move_ctrl,  then wheels" 
         -enableBackground 0
         -backgroundColor 0 0 0 
@@ -172,7 +204,7 @@ global proc shelf_LR_maya_tools () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Add motion path to car rig. Select motion path node, then path curve, then car move ctrl" 
+        -annotation "Add motion path to car rig. Select curve, car move ctrl then click OR selct motion path node, car move ctrl then double click." 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
@@ -191,40 +223,9 @@ global proc shelf_LR_maya_tools () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import lr_plug_in_car_path\nreload(lr_plug_in_car_path)" 
+        -command "import lr_plug_in_car_path as picp\nreload(picp)\npicp.create_motionPath()" 
         -sourceType "python" 
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 34
-        -height 34
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "Change curve color" 
-        -enableBackground 0
-        -backgroundColor 0 0 0 
-        -highlightColor 0.321569 0.521569 0.65098 
-        -align "center" 
-        -label "Change curve color" 
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont" 
-        -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
-        -image "curveColorDO.png" 
-        -image1 "curveColorDO.png" 
-        -style "iconOnly" 
-        -marginWidth 1
-        -marginHeight 1
-        -command "import maya.cmds as mc\nfrom functools import partial\n\n#check if drawingOverides is already open\nif mc.window('drawingOverides', query=True, exists=True):\n    mc.deleteUI('drawingOverides', window=True)\n\n\n\ndef assignColor(colorSlider, arg=None):\n    \n    colorPick = mc.colorIndexSliderGrp( colorSlider, q=1, v=1 )\n    sel= mc.ls(sl=1)\n    for obj in sel:\n        sel_shapes = mc.listRelatives(obj, s=1, pa=1)\n        print(sel_shapes)\n        for shape in sel_shapes:\n            print(shape)\n            print(colorPick)\n            mc.setAttr (shape + \".overrideEnabled\", 1)\n            mc.setAttr (shape + \".overrideColor\", colorPick-1 )\n        \n        \n        \n\n######## GUI    \nmc.window('drawingOverides', title='Change curve color')\nmc.rowColumnLayout(numberOfColumns=2, columnWidth=[(1, 500), (2, 20), (3, 100)])\ncolorSlider = mc.colorIndexSliderGrp( label='Select Color:   ', min=0, max=20, value=10 )\nmc.text(label='')\nmc. button(label='assign', command=partial(assignColor, colorSlider ))\n\n#Show\nmc.showWindow('drawingOverides')\n\n\n\n\n" 
-        -sourceType "python" 
+        -doubleClickCommand "import lr_plug_in_car_path as picp\nreload(picp)\npicp.connect_motionPath()" 
         -commandRepeatable 1
         -flat 1
     ;
