@@ -135,29 +135,17 @@ scripts/lr_ToLambert.py
 scripts/lr_ToLambert_transparent - Copy.py
 scripts/lr_ToLambert_transparent.py
 scripts/lr_ToVray.py
-scripts/lr_assignShader.py
 scripts/lr_bakeAnim.py
-scripts/lr_bakeAnimForUnity.py
 scripts/lr_bakeBlendShader - Copy.py
 scripts/lr_bakeBlendShader.py
 scripts/lr_ctrlOrientTool_noGroup.py
-scripts/lr_getHDRtexture.py
-scripts/lr_massOBJexport.py
-scripts/lr_orientGrp.py
 scripts/lr_populatePopup.py
-scripts/lr_populateShaderMenu.py
-scripts/lr_runOBJbatch.py
-scripts/lr_save_duplicate.py
 scripts/lr_save_duplicate_old.py
-scripts/lr_snap.py
 scripts/lr_snapTool.py
-scripts/lr_sta_batchOBJ.py
 scripts/renameDuplicates.py
 scripts/tf_smoothSkinWeight.py
 scripts/userSetup.py
 scripts/vraytuner_pycomponents.py
-scripts/wheelRig.py
-scripts/wheelRig1.py
 scripts/zooToolbox.py
 Plug-Ins_LIST.jpg
 prefs/icons/Thumbs.db
