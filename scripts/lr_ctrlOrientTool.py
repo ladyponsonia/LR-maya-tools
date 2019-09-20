@@ -1,69 +1,58 @@
-####################################
-##  CONTROL ORIENT TOOL           ##
-##  lr_ctrlOrientTool.py          ##
-##  Created by Lorena Rother      ##
-##  Updated: 05 Jan 2018          ##
-####################################
 import maya.cmds as mc
 import math 
+import maya.OpenMaya as om
+
+def warning_msg(msg, arg=None):
+    mc.confirmDialog(title='Warning', message=msg, button='ok')
 
 sel =  mc.ls(sl=True, fl=1)
-verts = sel[0:3]
-ctrl = sel[3]
+if(sel):
+    ctrl = sel.pop()
+    if(len(verts)==3 or len(verts)==6):
+        verts = sel
+        #create orient grp with same pivot as ctrl then parent ctrl
+        orientGrp = mc.group(n=str(ctrl).replace('_Ctrl', '_')+'orientGrp', em=1)
+        constraint = mc.parentConstraint( ctrl, orientGrp)
+        mc.delete(constraint)
+        mc.parent(ctrl, orientGrp)
 
-#helper function to align vectors
-def aimY(vect):
-    xyLength = math.sqrt((vect[0] * vect[0]) + (vect[1] * vect[1]))
-    vectLength =  math.sqrt((vect[0] * vect[0]) + (vect[1] * vect[1]) + (vect[2] * vect[2]))
-    #xyLength will be zero when vect is pointing along the +z or -z axis
-    if(xyLength == 0):
-        if (vect[0] > 0):
-            zAngle = math.radians(90) 
+        #create helper plane/s. Find normals 
+        helper_plane_01 = mc.polyCreateFacet( p=[mc.pointPosition(verts[0]), mc.pointPosition(verts[1]), mc.pointPosition(verts[2])] )
+        plane01_str_normal = mc.polyInfo(fn=1)[0].split()
+        mc.delete(helper_plane_01)
+        plane01_normal = (float(plane01_str_normal[2]), float(plane01_str_normal[3]), float(plane01_str_normal[4]))
+        vectorN = om.MVector(plane01_normal[0], plane01_normal[1], plane01_normal[2])
+
+        if (len(verts)==6):
+            helper_plane_02 = mc.polyCreateFacet( p=[mc.pointPosition(verts[3]), mc.pointPosition(verts[4]), mc.pointPosition(verts[5])] )
+            plane02_str_normal = mc.polyInfo(fn=1)[0].split()
+            mc.delete(helper_plane_02)
+            plane02_normal = (float(plane02_str_normal[2]), float(plane02_str_normal[3]), float(plane02_str_normal[4]))
+            vectorT = om.MVector(plane02_normal[0], plane02_normal[1], plane02_normal[2])
         else:
-            zAngle = math.radians(-90)
-    else:
-        zAngle = math.acos(vect[1]/xyLength)
-    xAngle = math.acos(xyLength/vectLength)
-    if (vect[2] > 0):
-        xAngle = xAngle 
-    else:
-        xAngle = -xAngle
-    if (vect[0] > 0):
-        zAngle = -zAngle
-    else:
-        zAngle = zAngle
-    out = [math.degrees(xAngle), math.degrees(zAngle)]
-    return out
+            # if only one plane is provided, find which one of the world axes is orthogonal to the normal
+            if (vectorN*om.MVector(1,0,0) == 0):
+                vectorT = om.MVector(1,0,0)
+            if (vectorN*om.MVector(0,1,0) == 0):
+                vectorT = om.MVector(0,1,0)
+            if (vectorN*om.MVector(0,0,1) == 0):
+                vectorT = om.MVector(0,0,1)
+            print(vectorT.x, vectorT.y, vectorT.z)
 
-#create orient grp with same pivot as ctrl then parent ctrl
-orientGrp = mc.group(n=str(ctrl).replace('_Ctrl', '_')+'orientGrp', em=1)
-constraint = mc.parentConstraint( ctrl, orientGrp)
-mc.delete(constraint)
-mc.parent(ctrl, orientGrp)
-#freeze transforms
-mc.makeIdentity(orientGrp, apply=1, t=1, r=1, s=1, n=0)
-#get verts positions
-vert1Pos = mc.pointPosition(verts[0])
-vert2Pos = mc.pointPosition(verts[1])
-vert3Pos = mc.pointPosition(verts[2])
-#create helper plane. Find normal 
-dummyPlane = mc.polyCreateFacet( p=[vert1Pos, vert2Pos, vert3Pos] )
-stringNormal = mc.polyInfo(fn=1)[0].split()
-mc.delete(dummyPlane)
-print(stringNormal)
-helperPlaneNormal = (float(stringNormal[2]), float(stringNormal[3]), float(stringNormal[4]))
-print(helperPlaneNormal)
-# angle with world up vector
-rot = aimY(helperPlaneNormal)
-#assign rotation to orientGrp and lock
-mc.xform(orientGrp, ro=(rot[0], 0, rot[1]))
-attributes = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz']
-for attribute in attributes:
-    mc.setAttr(str(orientGrp)+'.'+attribute, l=1)
+        vectorX = vectorN^vectorT
 
-####################################
-##  CONTROL ORIENT TOOL           ##
-##  lr_ctrlOrientTool.py          ##
-##  Created by Lorena Rother      ##
-##  Updated: 05 Jan 2018          ##
-####################################
+        #make rotation matrix from vectors
+        #keep position and assign rotation matrix to orientGrp 
+        orientGrp_matrix = mc.xform(orientGrp,q=1, m=1)
+        mc.xform(orientGrp, m=(vectorX.x, vectorX.y, vectorX.z, 0, vectorN.x, vectorN.y, vectorN.z, 0, vectorT.x, vectorT.y, vectorT.z, 0,orientGrp_matrix[12],orientGrp_matrix[13],orientGrp_matrix[14],orientGrp_matrix[15] ))
+        #freeze transforms
+        mc.makeIdentity(orientGrp, apply=1, t=1, n=0)
+    else:
+        warning_msg("Please select 3 or 6 vertices and then ctrl")
+else:
+    warning_msg("Please select 3 or 6 vertices and then ctrl")
+
+
+
+
+
