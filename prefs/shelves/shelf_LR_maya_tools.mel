@@ -127,8 +127,9 @@ global proc shelf_LR_maya_tools () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import lr_ctrlOrientTool\nreload(lr_ctrlOrientTool)" 
+        -command "import lr_ctrlOrientTool_UI\nreload(lr_ctrlOrientTool_UI)" 
         -sourceType "python" 
+        -doubleClickCommand "import lr_ctrlOrientTool as cot\nreload(cot)\ncot.create_orient_group()" 
         -commandRepeatable 1
         -flat 1
     ;
