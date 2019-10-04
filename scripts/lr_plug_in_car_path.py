@@ -30,6 +30,16 @@ def create_motionPath():
         warning_msg("Second object should be the car control that has the 'Use Path' attribute.")
         return
 
+    #connect curve length to car rig
+    curveInfo_node = mc.createNode("curveInfo", n= str(curve)+ "_curveInfo")
+    mc.connectAttr(str(curve_shape) + ".worldSpace[0]", str(curveInfo_node) + ".inputCurve")
+    try:
+        mc.connectAttr(str(curveInfo_node) + ".arcLength", str(move_ctrl) + ".arcLength")
+    except RuntimeError as rtError:
+        mc.delete(curveInfo_node)
+        print(rtError)
+        warning_msg("It looks like the rig already has some input connections.\n Clean the rig and try again")
+        return
     #create motion path with locator
     motion_path = mc.createNode("motionPath", n= str(curve)+ "_motionPath")
     locator = mc.spaceLocator(n= str(curve)+ "_locator")[0]
@@ -40,17 +50,9 @@ def create_motionPath():
     mc.setAttr(str(motion_path)+".fractionMode", 1)
     mc.setAttr(str(motion_path)+".frontAxis", 2)
     mc.setAttr(str(motion_path)+".upAxis", 1)
-    #connect curve length and uValue to car rig
-    curveInfo_node = mc.createNode("curveInfo", n= str(curve)+ "_curveInfo")
-    mc.connectAttr(str(curve_shape) + ".worldSpace[0]", str(curveInfo_node) + ".inputCurve")
-    try:
-        mc.connectAttr(str(curveInfo_node) + ".arcLength", str(move_ctrl) + ".arcLength")
-        mc.connectAttr(str(motion_path) + ".uValue", str(move_ctrl) + ".uValue")
-    except RuntimeError as rtError:
-        mc.delete(curveInfo_node)
-        mc.delete(locator)
-        print(rtError)
-        warning_msg("It looks like the rig already has some input connections.\n Clean the rig and try again")
+    #connect uValue to car rig
+    mc.connectAttr(str(motion_path) + ".uValue", str(move_ctrl) + ".uValue")
+    
 
 def connect_motionPath():
     sel = mc.ls(sl=1)
