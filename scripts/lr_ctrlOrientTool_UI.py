@@ -221,7 +221,7 @@ mc.showWindow('ctrlOrientUI')
 ##  CTRL ORIENT UI                ##
 ##  lr_ctrlOrientTool_UI.py       ##
 ##  Created by Lorena Rother      ##
-##  Updated: 26 Sep 2019          ##
+##  Updated: 26. Sep 2019          ##
 ####################################
 
 
