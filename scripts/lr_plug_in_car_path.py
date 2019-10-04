@@ -37,6 +37,7 @@ def create_motionPath():
     mc.connectAttr(str(motion_path)+".allCoordinates", str(locator) + ".translate")
     mc.connectAttr(str(motion_path)+".rotate", str(locator) + ".rotate")
     mc.connectAttr(str(motion_path)+".rotateOrder", str(locator) + ".rotateOrder")
+    mc.setAttr(str(motion_path)+".fractionMode", 1)
     mc.setAttr(str(motion_path)+".frontAxis", 2)
     mc.setAttr(str(motion_path)+".upAxis", 1)
     #connect curve length and uValue to car rig
@@ -47,6 +48,7 @@ def create_motionPath():
         mc.connectAttr(str(motion_path) + ".uValue", str(move_ctrl) + ".uValue")
     except RuntimeError as rtError:
         mc.delete(curveInfo_node)
+        mc.delete(locator)
         print(rtError)
         warning_msg("It looks like the rig already has some input connections.\n Clean the rig and try again")
 
