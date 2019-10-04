@@ -108,7 +108,7 @@ global proc shelf_LR_maya_tools () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Create orientGrp" 
+        -annotation "click for GUI or select 3 or 6 vertices then select ctrl curve in outliner then double click shelf button." 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
