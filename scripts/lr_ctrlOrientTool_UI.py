@@ -50,8 +50,9 @@ class DummyPlane():
             dplane= mc.polyCreateFacet( p=[mc.pointPosition(self.components[0]), mc.pointPosition(self.components[1]), mc.pointPosition(self.components[2])] )
         str_normal = mc.polyInfo(dplane, fn=1)[0].split()
         mc.delete(dplane)
-        return om.MVector(float(str_normal[2]), float(str_normal[3]), float(str_normal[4]))
-
+        normal_vector = om.MVector(float(str_normal[2]), float(str_normal[3]), float(str_normal[4]))
+        normal_vector.normalize()
+        return normal_vector
 
 def warning_msg(msg, arg=None):
     mc.confirmDialog(title='Warning', message=msg, button='ok')
@@ -109,9 +110,17 @@ def create_orient_group(*args):
         #create helper plane/s. Find normals 
         plane01_normal = plane01.get_normal()
         plane02_normal = plane02.get_normal()
-        if plane01_normal== plane02_normal:
+        dot_prd = plane01_normal* plane02_normal
+        #if both planes are the same warn and exit
+        if almost_equal(abs(dot_prd), 1.0, decimal=4):
+            print("dot product: ", dot_prd)
             warning_msg("1st plane and 2nd plane are the same.Please select 2 different planes.")
             return
+        #if planes are not orthogonal warn and aproximate
+        if not almost_equal(abs(dot_prd), 0.0, decimal=4):
+            print("dot product: ", dot_prd)
+            warning_msg("1st plane and 2nd plane are not orthogonal. Aproximating.")
+            #return
 
 
     else:
@@ -120,6 +129,8 @@ def create_orient_group(*args):
 
     #find 3rd vector
     plane03_normal = plane01_normal^plane02_normal
+    #recross in case plane01 and plane02 were not originally orthogonal
+    plane02_normal = plane03_normal^plane01_normal
 
     #create orient grp with same pivot as ctrl then parent ctrl
     orientGrp = mc.group(n=str(my_control).replace('_Ctrl', '_')+'orientGrp', em=1)
@@ -182,6 +193,11 @@ def radioSwitch (rb, *args):
         mc.radioButton(alt_sel, e=1, sl=1 )
     else:
         mc.radioButton(rb, e=1, enable=1)
+        
+
+#https://stackoverflow.com/questions/5595425/what-is-the-best-way-to-compare-floats-for-almost-equality-in-python
+def almost_equal(a, b, decimal=6):
+    return '{0:.{1}f}'.format(a, decimal) == '{0:.{1}f}'.format(b, decimal)
 
 ##### GUI ---------------------------------------------------------
 win = mc.window('ctrlOrientUI', title='Control orient Tool', rtf=1)
