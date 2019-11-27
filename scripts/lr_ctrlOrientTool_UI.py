@@ -20,7 +20,7 @@ if ( not mc.selectPref(trackSelectionOrder=1, q=1)):
 
 plane01 = None
 plane02 = None
-control = None
+my_control = None
 
 class DummyPlane():
     def __init__(self, sel):
@@ -60,7 +60,7 @@ def warning_msg(msg, arg=None):
 def assignSelection(number, *args):
     global plane01
     global plane02
-    global control
+    global my_control
     sel = mc.ls(os=1, sn=1)
     if sel:
         if number ==1:
@@ -70,8 +70,8 @@ def assignSelection(number, *args):
             plane02= DummyPlane(sel)
             mc.text(plane02_list, e=True, l= plane02.components_string)
         else:
-            control = sel[0]
-            mc.text(anm_control, e=True, l= str(control))
+            my_control = sel[0]
+            mc.text(anm_control, e=True, l= str(my_control))
 
     #if nothing selected, empty field
     else:
@@ -83,14 +83,14 @@ def assignSelection(number, *args):
             plane02=None
         else:
             mc.text(anm_control, e=True, l='')
-            control=None
+            my_control=None
 
 
 
 def create_orient_group(*args):
     plane01_normal=None
     plane02_normal=None
-    if(plane01 and control and not plane02):
+    if(plane01 and my_control and not plane02):
         print("no plane02")
         #create helper plane. Find normals 
         plane01_normal = plane01.get_normal()
@@ -105,7 +105,7 @@ def create_orient_group(*args):
             #if none of the axes are aligned with a world axis, ask for more verts to define a 2nd plane
             warning_msg("No axes are aligned with a world axis. You'll need to select 6 vertices and then ctrl.")
             return
-    elif(plane01 and control and plane02):
+    elif(plane01 and my_control and plane02):
         #create helper plane/s. Find normals 
         plane01_normal = plane01.get_normal()
         plane02_normal = plane02.get_normal()
@@ -122,10 +122,10 @@ def create_orient_group(*args):
     plane03_normal = plane01_normal^plane02_normal
 
     #create orient grp with same pivot as ctrl then parent ctrl
-    orientGrp = mc.group(n=str(control).replace('_Ctrl', '_')+'orientGrp', em=1)
-    constraint = mc.parentConstraint( control, orientGrp)
+    orientGrp = mc.group(n=str(my_control).replace('_Ctrl', '_')+'orientGrp', em=1)
+    constraint = mc.parentConstraint( my_control, orientGrp)
     mc.delete(constraint)
-    mc.parent(control, orientGrp)
+    mc.parent(my_control, orientGrp)
 
     #make rotation matrix from vectors
     #query matrix to use position row
@@ -204,7 +204,7 @@ xrb02 = mc.radioButton( label='x' , en=0)
 yrb02 = mc.radioButton( label='y' , sl=1)
 zrb02 = mc.radioButton( label='z' )
 mc.text(label='Control:', align='left', bgc = [0.5, 0.5, 0.5])
-anm_control =  mc.text(label='Select animation control',font='obliqueLabelFont', align='left')
+anm_control =  mc.text(label='Select animation my_control',font='obliqueLabelFont', align='left')
 mc.button(label=' assign', command= partial(assignSelection, 3))
 mc.setParent( '..' )
 mc.setParent( '..' )
@@ -213,7 +213,7 @@ mc.radioButton( yrb01, e=1, cc = partial(radioSwitch, yrb02 ))
 mc.radioButton( zrb01, e=1, cc = partial(radioSwitch, zrb02 ))
 #Process
 mc.columnLayout(cw=500)
-mc. button(label='Orient control', w=575, command= partial(create_orient_group))
+mc. button(label='Orient my_control', w=575, command= partial(create_orient_group))
 #Show
 mc.showWindow('ctrlOrientUI')
 
