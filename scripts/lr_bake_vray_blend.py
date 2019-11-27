@@ -459,7 +459,7 @@ def add_coat(blend_material, coat_number, size, res_colorQImage, res_bumpQImage,
                 return True
             else:
                 #if coat doesn't have matte warn and don't add to texture
-                warning_msg("Coat " + str(coat_number)+ " (" + coat[0] + ") has no matte.\nSkipping layer")
+                warning_msg("Coat " + str(coat_number)+ " (" + current_coat + ") has no matte.\nSkipping layer")
                 print ("matte: Has no matte")
                 return True
 
