@@ -8,17 +8,19 @@ import maya.cmds as mc
 import os
 import time
 
+OLD_FOLDER_BASE = os.path.abspath("X:/digital_services/_3D_Projects/_Old")
 
 def save_duplicate():
     time_start= time.time()
-    project_folder = mc.workspace( q=1, rd=1 )
+    project_folder = os.path.abspath(mc.workspace( q=1, rd=1 ))
     #print("project folder: " + project_folder)
-    current_file_absPath = mc.file(q=1, sn=1)
-    current_file_name = current_file_absPath.split("/")[-1]
+    current_file_absPath = os.path.abspath(mc.file(q=1, sn=1))
+    current_file_name = os.path.basename(current_file_absPath)
+
 
     #save in old folder
     try:
-        mc.file( rename= get_old_folder(project_folder) + make_new_name(current_file_name) )
+        mc.file( rename= os.path.join(get_old_folder(project_folder), make_new_name(current_file_name) ))
         saved_file = mc.file( save=True, type= get_file_type(current_file_name) )
         print("saved in old folder: " + saved_file)
         #save in scenes folder
@@ -43,18 +45,15 @@ def warning_msg(msg):
 
 #find old folder
 def get_old_folder(project_folder):
-    old_folder = ""
-    if (os.path.isdir(project_folder + "_Old")):
-        old_folder = project_folder +"_Old/"
-    else:
-        sku_root = project_folder.replace("/2_scenes/", "/")
-        #print("sku root:" + sku_root)
-        if (os.path.isdir(sku_root +"_Old")):
-            old_folder = sku_root +"_Old/"
-        else:
-            warning_msg("Project structure not supported.")
-            return -1
-    #print("old folder: " + old_folder)
+    if os.path.basename(project_folder) == "2_scenes":
+        project_folder = os.path.dirname(project_folder)
+    brand_name = os.path.split(os.path.dirname(project_folder))[-1]
+    old_folder = os.path.join(OLD_FOLDER_BASE, brand_name, os.path.basename(project_folder))
+    if not os.path.isdir(os.path.dirname(old_folder)):
+        os.mkdir(os.path.dirname(old_folder))
+    if not os.path.isdir(old_folder):
+        os.mkdir(old_folder)
+    print("old folder: " + old_folder)
     return old_folder
 
 #generate name with timestamp
